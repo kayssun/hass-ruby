@@ -2,7 +2,7 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
-  spec.name          = 'hass'
+  spec.name          = 'hass-client'
   spec.version       = '0.1.0'
   spec.authors       = ['Gerrit Visscher']
   spec.email         = ['gerrit@visscher.de']

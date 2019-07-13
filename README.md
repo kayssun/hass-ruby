@@ -1,19 +1,19 @@
-# hass, Ruby client for HomeAssistant
+# hass-client, Ruby client for HomeAssistant
 
-hass is a simple Ruby client for the HomeAssistant API.
+hass-client is a simple Ruby client for the HomeAssistant API.
 
 ## Installation
 
 Install the gem via 
 
 ```bash
-gem install hass
+gem install hass-client
 ```
 
 or put it in your Gemfile
 
 ```ruby
-gem 'hass'
+gem 'hass-client'
 ```
 
 ## Usage
