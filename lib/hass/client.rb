@@ -66,6 +66,10 @@ module Hass
       @domains ||= get('/services')
     end
 
+    def states
+      get('/states')
+    end
+
     def snake_to_camel(text)
       text.split('_').collect(&:capitalize).join
     end

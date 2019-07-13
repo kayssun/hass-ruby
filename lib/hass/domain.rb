@@ -40,6 +40,18 @@ module Hass
       check_params(service, params)
     end
 
+    def state_data
+      @client.get("/states/#{@entity_id}")
+    end
+
+    def attributes
+      state_data['attributes']
+    end
+
+    def state
+      state_data['state']
+    end
+
     def data
       self.class.const_get('DATA')
     end
