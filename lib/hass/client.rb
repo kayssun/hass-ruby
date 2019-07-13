@@ -1,7 +1,7 @@
 require 'net/http'
 require 'uri'
 require 'json'
-require_relative 'domain'
+require 'hass/domain'
 
 module Hass
   # The HomeAssistant server
@@ -77,7 +77,6 @@ module Hass
         domain_class.const_set('DATA', domain)
         domain['services'].keys.each do |service|
           domain_class.send(:define_method, service.to_sym) do |params = {}|
-            puts "You called method #{service} on object #{domain_name}"
             execute_service(service, params)
           end
         end
@@ -89,7 +88,6 @@ module Hass
       domains.each do |domain|
         domain_name = snake_to_camel(domain['domain'])
         self.class.send(:define_method, domain['domain'].to_sym) do |entity_id|
-          puts "returning class #{domain_name}"
           domain_class = Hass.const_get(domain_name).new(entity_id)
           domain_class.client = self
           domain_class

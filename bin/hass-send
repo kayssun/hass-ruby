@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative 'client'
+require 'hass/client'
 
 HOST = ENV['HASS_HOST'] ? ENV['HASS_HOST'].freeze : 'localhost'.freeze
 PORT = ENV['HASS_PORT'] ? ENV['HASS_PORT'].to_i : 8123
