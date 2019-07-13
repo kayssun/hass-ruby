@@ -2,6 +2,8 @@
 
 hass-client is a simple Ruby client for the HomeAssistant API.
 
+The idea was to have a client which has actual classes for the available devices. This way, you can inspect objects and see your possible actions. It works for the available services but not yet for all states.
+
 ## Installation
 
 Install the gem via 
@@ -60,3 +62,29 @@ client = Hass::Client.new('localhost', 8123, 'api_token')
 light = client.light('light.living_room')
 light.toggle
 ```
+
+You can get a list of your available device types (domains) via
+
+```ruby
+pp(client.domains.map { |domain| domain['domain'] })
+```
+
+You can also get a list of your available entity ids via
+
+```ruby
+pp(client.states.map {|state| state['entity_id']} )
+```
+
+After initializing the client, you can instantiate the available classes directly. You need to provide the client object to be able to use them:
+
+```ruby
+client = Hass::Client.new('localhost', 8123, 'api_token')
+mediaplayer = Hass::MediaPlayer.new('media_player.yamaha_receiver')
+mediaplayer.client = client
+pp mediaplayer.attributes
+mediaplayer.select_source(source: 'HDMI1')
+```
+
+## Caveats
+
+To make multiple calls to client.domains faster, the result is cached. If you have a longer running application, you will have to set @domains to nil to re-request the data. Other requests are not cached at all and this might significantly slow down access to multiple devices.
