@@ -6,8 +6,9 @@ HOST = ENV['HASS_HOST'] ? ENV['HASS_HOST'].freeze : 'localhost'.freeze
 PORT = ENV['HASS_PORT'] ? ENV['HASS_PORT'].to_i : 8123
 TOKEN = ENV['HASS_TOKEN']
 
-hass = Hass::Client.new(HOST, PORT, TOKEN)
-hass.light('light.stehlampe').toggle
+entity_id = ARGV[0]
+domain = entity_id.split('.').first
+service = ARGV[1]
 
-# light = Hass::Light.new('light.stehlampe')
-# light.client = hass
+hass = Hass::Client.new(HOST, PORT, TOKEN)
+hass.send(domain.to_sym, entity_id).send(service.to_sym)
