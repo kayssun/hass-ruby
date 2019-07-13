@@ -19,7 +19,7 @@ module Hass
       path = @base_path + path
       request = Net::HTTP::Get.new path
       header.each_pair { |field, content| request[field] = content }
-      response = send(request)
+      response = send_http(request)
       parse(response.body)
     end
 
@@ -28,11 +28,11 @@ module Hass
       request = Net::HTTP::Post.new path
       request.body = data.to_json
       header.each_pair { |field, content| request[field] = content }
-      response = send(request)
+      response = send_http(request)
       parse(response.body)
     end
 
-    def send(request)
+    def send_http(request)
       Net::HTTP.start(@host, @port, use_ssl: true) do |http|
         response = http.request request
         if response.code.to_i > 299
